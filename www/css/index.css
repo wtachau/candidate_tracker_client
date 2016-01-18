@@ -1,0 +1,26 @@
+body {
+  margin: 0px;
+  font-family: "Open Sans"; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: grey;
+  stroke-width: 1;
+  shape-rendering: crispEdges; }
+
+.axis .domain, .axis .tick line, .axis .tick:first-child {
+  display: none; }
+
+.line.line-clinton > path {
+  fill: #A043A0; }
+.line.line-trump > path {
+  fill: red; }
+.line.line-bernie > path {
+  fill: blue; }
+
+.candidate-image {
+  position: absolute; }
+  .candidate-image img {
+    width: 100px;
+    height: 100px; }
