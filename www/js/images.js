@@ -12,7 +12,7 @@ checkExist = setInterval((function() {
 ref = [0, 0, 0], trumpImageContainer = ref[0], clintonImageContainer = ref[1], bernieImageContainer = ref[2];
 
 showImages = function() {
-  var bernieImage, clintonImage, el, i, imageNum, len, numberOfPictures, ref1, results, trumpImage;
+  var bernieImage, clintonImage, imageNum, numberOfPictures, trumpImage;
   trumpImageContainer = ($("#trump-image"))[0];
   clintonImageContainer = ($("#clinton-image"))[0];
   bernieImageContainer = ($("#bernie-image"))[0];
@@ -27,14 +27,7 @@ showImages = function() {
   imageNum = Math.floor(Math.random() * 6) + 1;
   clintonImage.attr('src', "/images/clinton/" + imageNum + ".png");
   positionImages();
-  $("#trump-image, #clinton-image, #bernie-image").show();
-  ref1 = $(".y.axis text");
-  results = [];
-  for (i = 0, len = ref1.length; i < len; i++) {
-    el = ref1[i];
-    results.push(el.innerHTML = (parseFloat(el.innerHTML) * 100) + "%");
-  }
-  return results;
+  return $("#trump-image, #clinton-image, #bernie-image").show();
 };
 
 positionImages = function() {

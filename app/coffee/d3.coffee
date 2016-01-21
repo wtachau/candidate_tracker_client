@@ -22,7 +22,7 @@ parseDate = d3.time.format('%j').parse
 sizeAndPositionGraph = () ->
 
   # Set the dimensions of the canvas / graph
-  margin = top: 25, right: 0, bottom: 25, left: 50
+  margin = top: 25, right: 0, bottom: 25, left: 0
   width = window.innerWidth - margin.left - margin.right
   height = window.innerHeight - margin.top - margin.bottom
 
@@ -43,7 +43,7 @@ sizeAndPositionGraph = () ->
 
 render = () ->  
   # Thickness of line
-  scale = +0.0001 * .1
+  scale = +0.0001 * .35
 
   buffer = +0.1
   flattened = ($.map data, (v, i) -> v)
@@ -53,7 +53,7 @@ render = () ->
 
   # Define the axes
   xAxis = d3.svg.axis().scale(x).orient('bottom').ticks daysSinceStart
-  yAxis = d3.svg.axis().scale(y).orient('left').ticks 5
+  # yAxis = d3.svg.axis().scale(y).orient('left').ticks 5
 
   svg.selectAll('.line').remove()
 
@@ -75,8 +75,8 @@ render = () ->
   svg.selectAll(".x.axis").remove()
   svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
   # Add the Y Axis
-  svg.selectAll(".y.axis").remove()
-  svg.append('g').attr('class', 'y axis').call yAxis
+  # svg.selectAll(".y.axis").remove()
+  # svg.append('g').attr('class', 'y axis').call yAxis
 
 count = 0
 
@@ -110,9 +110,12 @@ getPastTweets = ->
         trumpObject = candidates.trump
         trumpObject.date = date
 
-        newData.bernie.push bernieObject
-        newData.trump.push trumpObject
-        newData.clinton.push clintonObject
+        # Only add to graph if total tweets for trump (who usually gets the most) is above 100
+        # i.e. once data has stabled out a bit
+        if candidates.trump.total > 100
+          newData.bernie.push bernieObject
+          newData.trump.push trumpObject
+          newData.clinton.push clintonObject
 
       data = newData
       render()

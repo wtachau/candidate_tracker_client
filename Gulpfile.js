@@ -45,7 +45,7 @@ gulp.task('coffee', function() {
 });
 
 gulp.task('html', function() {
-  return gulp.src('app/*.jade').pipe(jade()).pipe(minifyHTML()).pipe(gulp.dest(''));
+  return gulp.src('app/*.jade').pipe(jade()).pipe(minifyHTML()).pipe(gulp.dest('www/'));
 });
 
 gulp.task('default', ['watch', 'serve', 'coffee', 'css', 'html']);

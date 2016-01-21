@@ -31,10 +31,6 @@ showImages = () ->
 
   $("#trump-image, #clinton-image, #bernie-image").show()
 
-  # and update text
-  for el in $(".y.axis text")
-    el.innerHTML = "#{parseFloat(el.innerHTML) * 100}%"
-
 
 positionImages = () ->
   trumpRect = $(".line-trump path")[0].getBoundingClientRect()

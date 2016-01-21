@@ -27,7 +27,7 @@ sizeAndPositionGraph = function() {
     top: 25,
     right: 0,
     bottom: 25,
-    left: 50
+    left: 0
   };
   width = window.innerWidth - margin.left - margin.right;
   height = window.innerHeight - margin.top - margin.bottom;
@@ -38,8 +38,8 @@ sizeAndPositionGraph = function() {
 };
 
 render = function() {
-  var buffer, flattened, scale, xAxis, yAxis;
-  scale = +0.0001 * .1;
+  var buffer, flattened, scale, xAxis;
+  scale = +0.0001 * .35;
   buffer = +0.1;
   flattened = $.map(data, function(v, i) {
     return v;
@@ -55,7 +55,6 @@ render = function() {
     }) + buffer
   ]);
   xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(daysSinceStart);
-  yAxis = d3.svg.axis().scale(y).orient('left').ticks(5);
   svg.selectAll('.line').remove();
   $.each(data, function(key, value) {
     var area;
@@ -71,9 +70,7 @@ render = function() {
     });
   });
   svg.selectAll(".x.axis").remove();
-  svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis);
-  svg.selectAll(".y.axis").remove();
-  return svg.append('g').attr('class', 'y axis').call(yAxis);
+  return svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis);
 };
 
 count = 0;
@@ -107,9 +104,11 @@ getPastTweets = function() {
         clintonObject.date = date;
         trumpObject = candidates.trump;
         trumpObject.date = date;
-        newData.bernie.push(bernieObject);
-        newData.trump.push(trumpObject);
-        newData.clinton.push(clintonObject);
+        if (candidates.trump.total > 100) {
+          newData.bernie.push(bernieObject);
+          newData.trump.push(trumpObject);
+          newData.clinton.push(clintonObject);
+        }
       }
       data = newData;
       return render();

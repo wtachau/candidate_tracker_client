@@ -13,14 +13,21 @@ body {
   display: none; }
 
 .line.line-clinton > path {
-  fill: #A043A0; }
+  fill: #217BC1; }
 .line.line-trump > path {
-  fill: red; }
+  fill: #AF0000; }
 .line.line-bernie > path {
-  fill: blue; }
+  fill: #2B3061; }
 
 .candidate-image {
   position: absolute; }
   .candidate-image img {
     width: 100px;
     height: 100px; }
+
+.header {
+  height: 100px;
+  background: #AF0000;
+  position: absolute;
+  top: 0px;
+  width: 100%; }

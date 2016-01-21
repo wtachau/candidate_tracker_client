@@ -39,7 +39,7 @@ gulp.task 'html', ->
   gulp.src 'app/*.jade'
     .pipe jade()
     .pipe minifyHTML()
-    .pipe gulp.dest ''
+    .pipe gulp.dest 'www/'
 
 # Default task call every tasks created so far.
 gulp.task 'default', ['watch', 'serve', 'coffee', 'css', 'html']
