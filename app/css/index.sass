@@ -1,6 +1,8 @@
+$red: #AF0000
+
 body
   margin: 0px
-  font-family: 'Open Sans'
+  font-family: 'Gotham'
 
 .axis path,
 .axis line
@@ -17,7 +19,7 @@ body
   &.line-clinton > path
     fill: #217BC1
   &.line-trump > path
-    fill: #AF0000
+    fill: $red
   &.line-bernie > path
     fill: #2B3061
 
@@ -33,3 +35,26 @@ body
   position: absolute
   top: 0px
   width: 100%
+  .title-container
+    background-image: url("/images/red_star.png")
+    background-size: contain
+    text-align: center
+    margin-top: 20px
+    .title
+      color: white
+      text-align: center
+      font-size: 20px
+      margin-top: 20px
+      font-family: "Gotham-Bold"
+      background-color: $red
+      padding: 0px 9px 
+
+
+@font-face
+  font-family: "Gotham"
+  src: url("/fonts/Gotham.otf") format("truetype")
+
+@font-face
+  font-family: "Gotham-Bold"
+  src: url("/fonts/Gotham-Bold.otf") format("truetype")
+
