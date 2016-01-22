@@ -7,7 +7,6 @@ Date.prototype.getDOY = () ->
 today = new Date()
 daysSinceStart = today.getDOY() - 15
 
-
 # handle resize
 window.addEventListener "resize", () ->
   sizeAndPositionGraph()
@@ -15,13 +14,15 @@ window.addEventListener "resize", () ->
 
 # Parse the date / time
 parseDate = d3.time.format('%j').parse
+# Something about getting the right date from the data
 bisectDate = d3.bisector((d) -> return d.date).right
+# Thickness of line
+scale = +0.0001 * .35
 
 # Initial values
 [svg, x, y, width, height] = [0, 0, 0, 0, 0]
 
 sizeAndPositionGraph = () ->
-
   # Set the dimensions of the canvas / graph
   margin = top: 25, right: 0, bottom: 25, left: 0
   width = window.innerWidth
@@ -43,8 +44,6 @@ sizeAndPositionGraph = () ->
   y = d3.scale.linear().range [height, 0]
 
 render = () ->  
-  # Thickness of line
-  scale = +0.0001 * .35
 
   buffer = +0.1
   flattened = ($.map data, (v, i) -> v)
@@ -57,8 +56,6 @@ render = () ->
   # yAxis = d3.svg.axis().scale(y).orient('left').ticks 5
 
   svg.selectAll('.line').remove()
-
-  console.log data
 
   # Scale the range of the data
   $.each data, (key, value) ->
@@ -75,13 +72,16 @@ render = () ->
       .attr "d", (d) -> area value
 
     mousemove = () ->
-      x0 = x.invert(d3.mouse(this)[0])
-      y0 = y.invert(d3.mouse(this)[1])
+      xCoord = d3.mouse(this)[0]
+      displayInformation xCoord
+
+    displayInformation = (xCoord) ->
+      x0 = x.invert(xCoord)
+
       i = bisectDate(value, x0, 1)
       d0 = value[i - 1]
       d1 = value[i]
       d = if x0 - d0.date > d1.date - x0 then d1.date else d0.date
-      console.log d
 
       dataForCandidate = (candidateData) ->
         candidateData.filter((day) ->
@@ -91,16 +91,14 @@ render = () ->
       clintonData = dataForCandidate data.clinton
       bernieData = dataForCandidate data.bernie
 
-      console.log trumpData.total
-      console.log clintonData.total
-      console.log bernieData.total
-
       boxWidth = 200
       infoBox = ($ "#infowindow")[0]
-      newPos = d3.mouse(this)[0] - 100
+      newPos = xCoord - 100
+      # make sure it doesn't go off the page
       if newPos < 0 then newPos = 0
       if newPos + boxWidth > window.innerWidth then newPos = window.innerWidth - boxWidth
       infoBox.style.left = newPos
+      # fill in text
       $(infoBox).find(".bernie .results").text "#{(bernieData.average * 100).toFixed 2} %"
       $(infoBox).find(".clinton .results").text "#{(clintonData.average * 100).toFixed 2} %"
       $(infoBox).find(".trump .results").text "#{(trumpData.average * 100).toFixed 2} %"
@@ -117,6 +115,8 @@ render = () ->
         .on("mouseover", () -> console.log("mouseover"))
         .on("mouseout", () -> console.log("mouseout"))
         .on("mousemove", mousemove)
+
+    displayInformation(window.innerWidth / 2)
 
 
 

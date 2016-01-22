@@ -1,4 +1,4 @@
-var bisectDate, count, data, daysSinceStart, getPastTweets, height, parseDate, ref, render, sizeAndPositionGraph, svg, today, width, x, y;
+var bisectDate, count, data, daysSinceStart, getPastTweets, height, parseDate, ref, render, scale, sizeAndPositionGraph, svg, today, width, x, y;
 
 data = {};
 
@@ -23,6 +23,8 @@ bisectDate = d3.bisector(function(d) {
   return d.date;
 }).right;
 
+scale = +0.0001 * .35;
+
 ref = [0, 0, 0, 0, 0], svg = ref[0], x = ref[1], y = ref[2], width = ref[3], height = ref[4];
 
 sizeAndPositionGraph = function() {
@@ -42,8 +44,7 @@ sizeAndPositionGraph = function() {
 };
 
 render = function() {
-  var buffer, flattened, scale, xAxis;
-  scale = +0.0001 * .35;
+  var buffer, flattened, xAxis;
   buffer = +0.1;
   flattened = $.map(data, function(v, i) {
     return v;
@@ -60,9 +61,8 @@ render = function() {
   ]);
   xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(daysSinceStart);
   svg.selectAll('.line').remove();
-  console.log(data);
   $.each(data, function(key, value) {
-    var area, mousemove;
+    var area, displayInformation, mousemove;
     area = d3.svg.area().interpolate("basis").x(function(d) {
       return x(d.date);
     }).y0(function(d) {
@@ -74,14 +74,17 @@ render = function() {
       return area(value);
     });
     mousemove = function() {
-      var bernieData, boxWidth, clintonData, d, d0, d1, dataForCandidate, i, infoBox, months, newPos, trumpData, x0, y0;
-      x0 = x.invert(d3.mouse(this)[0]);
-      y0 = y.invert(d3.mouse(this)[1]);
+      var xCoord;
+      xCoord = d3.mouse(this)[0];
+      return displayInformation(xCoord);
+    };
+    displayInformation = function(xCoord) {
+      var bernieData, boxWidth, clintonData, d, d0, d1, dataForCandidate, i, infoBox, months, newPos, trumpData, x0;
+      x0 = x.invert(xCoord);
       i = bisectDate(value, x0, 1);
       d0 = value[i - 1];
       d1 = value[i];
       d = x0 - d0.date > d1.date - x0 ? d1.date : d0.date;
-      console.log(d);
       dataForCandidate = function(candidateData) {
         return candidateData.filter(function(day) {
           return day.date.getTime() === d.getTime();
@@ -90,12 +93,9 @@ render = function() {
       trumpData = dataForCandidate(data.trump);
       clintonData = dataForCandidate(data.clinton);
       bernieData = dataForCandidate(data.bernie);
-      console.log(trumpData.total);
-      console.log(clintonData.total);
-      console.log(bernieData.total);
       boxWidth = 200;
       infoBox = ($("#infowindow"))[0];
-      newPos = d3.mouse(this)[0] - 100;
+      newPos = xCoord - 100;
       if (newPos < 0) {
         newPos = 0;
       }
@@ -110,11 +110,12 @@ render = function() {
       $(infoBox).find(".date").text("" + (months[d.getMonth()] + " " + d.getDate()));
       return infoBox.style.top = ((window.innerHeight - $(infoBox).height()) / 2) + 25;
     };
-    return svg.append("rect").attr("width", width).attr("height", height).style("fill", "none").style("pointer-events", "all").on("mouseover", function() {
+    svg.append("rect").attr("width", width).attr("height", height).style("fill", "none").style("pointer-events", "all").on("mouseover", function() {
       return console.log("mouseover");
     }).on("mouseout", function() {
       return console.log("mouseout");
     }).on("mousemove", mousemove);
+    return displayInformation(window.innerWidth / 2);
   });
   svg.selectAll(".x.axis").remove();
   return svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis);
