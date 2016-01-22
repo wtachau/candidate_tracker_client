@@ -8,20 +8,23 @@ script(src="http://d3js.org/d3.v3.min.js", charset="utf-8")
 body
   .header 
     .title-container
-      span.title 2016 CANDIDATE TRACKER
+      span.title 2016 CANDIDATE TWITTER TRACKER
 
-  .chart
+  #infowindow
+    .date
+    .bernie.candidate-box
+      img
+      .results
+    .clinton.candidate-box
+      img
+      .results
+    .trump.candidate-box
+      img
+      .results
 
   .tweet-row
 
-  #trump-image.candidate-image
-    img
-  #bernie-image.candidate-image
-    img
-  #clinton-image.candidate-image
-    img
-
-//- script(src="js/home.js")
 script(src="js/d3.js")
 script(src="js/images.js")
+//- script(src="js/infowindow.js")
 

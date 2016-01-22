@@ -1,8 +1,11 @@
 $red: #AF0000
+$bernie-blue: #2B3061
+$clinton-blue: #217BC1
 
 body
   margin: 0px
   font-family: 'Gotham'
+  background-color: #F4F4F4
 
 .axis path,
 .axis line
@@ -17,11 +20,11 @@ body
 
 .line
   &.line-clinton > path
-    fill: #217BC1
+    fill: $clinton-blue
   &.line-trump > path
     fill: $red
   &.line-bernie > path
-    fill: #2B3061
+    fill: $bernie-blue
 
 .candidate-image
   position: absolute
@@ -30,7 +33,7 @@ body
     height: 100px
 
 .header
-  height: 100px
+  height: 65px
   background: #AF0000
   position: absolute
   top: 0px
@@ -49,6 +52,34 @@ body
       background-color: $red
       padding: 0px 9px 
 
+
+#infowindow
+  position: absolute
+  background-color: white
+  border: 1px solid #ADADAD
+  border-radius: 10px
+  text-align: center
+  pointer-events: none
+  .date
+    padding-top: 15px
+    text-decoration: underline
+  img
+    width: 100px
+    height: 100px
+  .candidate-box
+    padding: 10px
+    &.bernie
+      padding-top: 20px
+  .results
+    font-size: 30px
+    font-family: "Gotham-Bold"
+    margin-top: 5px
+  .bernie .results
+    color: $bernie-blue
+  .clinton .results
+    color: $clinton-blue
+  .trump .results
+    color: $red
 
 @font-face
   font-family: "Gotham"

@@ -15,6 +15,7 @@ window.addEventListener "resize", () ->
 
 # Parse the date / time
 parseDate = d3.time.format('%j').parse
+bisectDate = d3.bisector((d) -> return d.date).right
 
 # Initial values
 [svg, x, y, width, height] = [0, 0, 0, 0, 0]
@@ -23,8 +24,8 @@ sizeAndPositionGraph = () ->
 
   # Set the dimensions of the canvas / graph
   margin = top: 25, right: 0, bottom: 25, left: 0
-  width = window.innerWidth - margin.left - margin.right
-  height = window.innerHeight - margin.top - margin.bottom
+  width = window.innerWidth
+  height = window.innerHeight
 
   # Removes any previous svg canvas
   d3.selectAll('.graph').remove()
@@ -32,8 +33,8 @@ sizeAndPositionGraph = () ->
   # Adds the svg canvas
   svg = d3.select('body').append('svg')
           .attr('class', 'graph')
-          .attr('width', width + margin.left + margin.right)
-          .attr('height', height + margin.top + margin.bottom)
+          .attr('width', width)
+          .attr('height', height)
           .append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
@@ -57,6 +58,8 @@ render = () ->
 
   svg.selectAll('.line').remove()
 
+  console.log data
+
   # Scale the range of the data
   $.each data, (key, value) ->
     area = d3.svg.area()
@@ -71,12 +74,55 @@ render = () ->
       .attr("class", "area")
       .attr "d", (d) -> area value
 
+    mousemove = () ->
+      x0 = x.invert(d3.mouse(this)[0])
+      y0 = y.invert(d3.mouse(this)[1])
+      i = bisectDate(value, x0, 1)
+      d0 = value[i - 1]
+      d1 = value[i]
+      d = if x0 - d0.date > d1.date - x0 then d1.date else d0.date
+      console.log d
+
+      dataForCandidate = (candidateData) ->
+        candidateData.filter((day) ->
+          day.date.getTime() == d.getTime())[0]
+
+      trumpData = dataForCandidate data.trump
+      clintonData = dataForCandidate data.clinton
+      bernieData = dataForCandidate data.bernie
+
+      console.log trumpData.total
+      console.log clintonData.total
+      console.log bernieData.total
+
+      boxWidth = 200
+      infoBox = ($ "#infowindow")[0]
+      newPos = d3.mouse(this)[0] - 100
+      if newPos < 0 then newPos = 0
+      if newPos + boxWidth > window.innerWidth then newPos = window.innerWidth - boxWidth
+      infoBox.style.left = newPos
+      $(infoBox).find(".bernie .results").text "#{(bernieData.average * 100).toFixed 2} %"
+      $(infoBox).find(".clinton .results").text "#{(clintonData.average * 100).toFixed 2} %"
+      $(infoBox).find(".trump .results").text "#{(trumpData.average * 100).toFixed 2} %"
+      months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+      $(infoBox).find(".date").text "#{(months[d.getMonth()]) + " " + d.getDate()}" 
+
+      infoBox.style.top = ((window.innerHeight - $(infoBox).height()) / 2) + 25
+
+    svg.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .style("fill", "none")
+        .style("pointer-events", "all")
+        .on("mouseover", () -> console.log("mouseover"))
+        .on("mouseout", () -> console.log("mouseout"))
+        .on("mousemove", mousemove)
+
+
+
   # Add the X Axis
   svg.selectAll(".x.axis").remove()
   svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call xAxis
-  # Add the Y Axis
-  # svg.selectAll(".y.axis").remove()
-  # svg.append('g').attr('class', 'y axis').call yAxis
 
 count = 0
 
@@ -112,7 +158,7 @@ getPastTweets = ->
 
         # Only add to graph if total tweets for trump (who usually gets the most) is above 100
         # i.e. once data has stabled out a bit
-        if candidates.trump.total > 100
+        if candidates.trump.total > 30
           newData.bernie.push bernieObject
           newData.trump.push trumpObject
           newData.clinton.push clintonObject

@@ -1,4 +1,4 @@
-$("#trump-image, #clinton-image, #bernie-image").hide()
+$("#infowindow").hide()
 
 checkExist = setInterval((->
   if $('.line-trump path').length
@@ -11,13 +11,13 @@ checkExist = setInterval((->
 
 showImages = () ->
 
-  trumpImageContainer = ($ "#trump-image")[0]
-  clintonImageContainer = ($ "#clinton-image")[0]
-  bernieImageContainer = ($ "#bernie-image")[0]
+  trumpImageContainer = ($ "#infowindow .trump")[0]
+  clintonImageContainer = ($ "#infowindow .clinton")[0]
+  bernieImageContainer = ($ "#infowindow .bernie")[0]
 
-  trumpImage = ($ "#trump-image img")
-  clintonImage = ($ "#clinton-image img")
-  bernieImage = ($ "#bernie-image img")
+  trumpImage = $(trumpImageContainer).find "img"
+  clintonImage = $(clintonImageContainer).find "img"
+  bernieImage = $(bernieImageContainer).find "img"
 
   numberOfPictures = 6
   imageNum = Math.floor(Math.random()*6) + 1
@@ -27,26 +27,15 @@ showImages = () ->
   imageNum = Math.floor(Math.random()*6) + 1
   clintonImage.attr('src',"/images/clinton/#{imageNum}.png")
 
-  positionImages()
+  positionInfoBox()
 
-  $("#trump-image, #clinton-image, #bernie-image").show()
-
-
-positionImages = () ->
-  trumpRect = $(".line-trump path")[0].getBoundingClientRect()
-  clintonRect = $(".line-clinton path")[0].getBoundingClientRect()
-  bernieRect = $(".line-bernie path")[0].getBoundingClientRect()
-
-  trumpImageContainer.style.left = 150
-  trumpImageContainer.style.top = trumpRect.top + 25
-
-  bernieImageContainer.style.left = bernieRect.width / 2
-  bernieImageContainer.style.top = bernieRect.top - 25
-
-  clintonImageContainer.style.left = clintonRect.width - 100
-  clintonImageContainer.style.top = clintonRect.top + 10
+  $("#infowindow").show()
 
 
-# handle resize
-window.addEventListener "resize", () ->
-  positionImages()
+positionInfoBox = () ->
+  boxWidth = 200
+  boxHeight = 400
+  infoBox = ($ "#infowindow")[0]
+  infoBox.style.top = ((window.innerHeight - boxHeight) / 2)
+  infoBox.style.width = 200
+  infoBox.style.left = ((window.innerWidth - boxWidth) / 2)

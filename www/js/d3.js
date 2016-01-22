@@ -1,4 +1,4 @@
-var count, data, daysSinceStart, getPastTweets, height, parseDate, ref, render, sizeAndPositionGraph, svg, today, width, x, y;
+var bisectDate, count, data, daysSinceStart, getPastTweets, height, parseDate, ref, render, sizeAndPositionGraph, svg, today, width, x, y;
 
 data = {};
 
@@ -19,6 +19,10 @@ window.addEventListener("resize", function() {
 
 parseDate = d3.time.format('%j').parse;
 
+bisectDate = d3.bisector(function(d) {
+  return d.date;
+}).right;
+
 ref = [0, 0, 0, 0, 0], svg = ref[0], x = ref[1], y = ref[2], width = ref[3], height = ref[4];
 
 sizeAndPositionGraph = function() {
@@ -29,10 +33,10 @@ sizeAndPositionGraph = function() {
     bottom: 25,
     left: 0
   };
-  width = window.innerWidth - margin.left - margin.right;
-  height = window.innerHeight - margin.top - margin.bottom;
+  width = window.innerWidth;
+  height = window.innerHeight;
   d3.selectAll('.graph').remove();
-  svg = d3.select('body').append('svg').attr('class', 'graph').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+  svg = d3.select('body').append('svg').attr('class', 'graph').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
   x = d3.time.scale().range([0, width]);
   return y = d3.scale.linear().range([height, 0]);
 };
@@ -56,8 +60,9 @@ render = function() {
   ]);
   xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(daysSinceStart);
   svg.selectAll('.line').remove();
+  console.log(data);
   $.each(data, function(key, value) {
-    var area;
+    var area, mousemove;
     area = d3.svg.area().interpolate("basis").x(function(d) {
       return x(d.date);
     }).y0(function(d) {
@@ -65,9 +70,51 @@ render = function() {
     }).y1(function(d) {
       return y(+d.average + +d.total * +scale);
     });
-    return svg.append('g').attr("class", "line line-" + key).append("path").attr("class", "area").attr("d", function(d) {
+    svg.append('g').attr("class", "line line-" + key).append("path").attr("class", "area").attr("d", function(d) {
       return area(value);
     });
+    mousemove = function() {
+      var bernieData, boxWidth, clintonData, d, d0, d1, dataForCandidate, i, infoBox, months, newPos, trumpData, x0, y0;
+      x0 = x.invert(d3.mouse(this)[0]);
+      y0 = y.invert(d3.mouse(this)[1]);
+      i = bisectDate(value, x0, 1);
+      d0 = value[i - 1];
+      d1 = value[i];
+      d = x0 - d0.date > d1.date - x0 ? d1.date : d0.date;
+      console.log(d);
+      dataForCandidate = function(candidateData) {
+        return candidateData.filter(function(day) {
+          return day.date.getTime() === d.getTime();
+        })[0];
+      };
+      trumpData = dataForCandidate(data.trump);
+      clintonData = dataForCandidate(data.clinton);
+      bernieData = dataForCandidate(data.bernie);
+      console.log(trumpData.total);
+      console.log(clintonData.total);
+      console.log(bernieData.total);
+      boxWidth = 200;
+      infoBox = ($("#infowindow"))[0];
+      newPos = d3.mouse(this)[0] - 100;
+      if (newPos < 0) {
+        newPos = 0;
+      }
+      if (newPos + boxWidth > window.innerWidth) {
+        newPos = window.innerWidth - boxWidth;
+      }
+      infoBox.style.left = newPos;
+      $(infoBox).find(".bernie .results").text(((bernieData.average * 100).toFixed(2)) + " %");
+      $(infoBox).find(".clinton .results").text(((clintonData.average * 100).toFixed(2)) + " %");
+      $(infoBox).find(".trump .results").text(((trumpData.average * 100).toFixed(2)) + " %");
+      months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      $(infoBox).find(".date").text("" + (months[d.getMonth()] + " " + d.getDate()));
+      return infoBox.style.top = ((window.innerHeight - $(infoBox).height()) / 2) + 25;
+    };
+    return svg.append("rect").attr("width", width).attr("height", height).style("fill", "none").style("pointer-events", "all").on("mouseover", function() {
+      return console.log("mouseover");
+    }).on("mouseout", function() {
+      return console.log("mouseout");
+    }).on("mousemove", mousemove);
   });
   svg.selectAll(".x.axis").remove();
   return svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call(xAxis);
@@ -104,7 +151,7 @@ getPastTweets = function() {
         clintonObject.date = date;
         trumpObject = candidates.trump;
         trumpObject.date = date;
-        if (candidates.trump.total > 100) {
+        if (candidates.trump.total > 30) {
           newData.bernie.push(bernieObject);
           newData.trump.push(trumpObject);
           newData.clinton.push(clintonObject);

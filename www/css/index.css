@@ -1,6 +1,7 @@
 body {
   margin: 0px;
-  font-family: "Gotham"; }
+  font-family: "Gotham";
+  background-color: #F4F4F4; }
 
 .axis path,
 .axis line {
@@ -26,7 +27,7 @@ body {
     height: 100px; }
 
 .header {
-  height: 100px;
+  height: 65px;
   background: #AF0000;
   position: absolute;
   top: 0px;
@@ -44,6 +45,34 @@ body {
       font-family: "Gotham-Bold";
       background-color: #AF0000;
       padding: 0px 9px; }
+
+#infowindow {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ADADAD;
+  border-radius: 10px;
+  text-align: center;
+  pointer-events: none; }
+  #infowindow .date {
+    padding-top: 15px;
+    text-decoration: underline; }
+  #infowindow img {
+    width: 100px;
+    height: 100px; }
+  #infowindow .candidate-box {
+    padding: 10px; }
+    #infowindow .candidate-box.bernie {
+      padding-top: 20px; }
+  #infowindow .results {
+    font-size: 30px;
+    font-family: "Gotham-Bold";
+    margin-top: 5px; }
+  #infowindow .bernie .results {
+    color: #2B3061; }
+  #infowindow .clinton .results {
+    color: #217BC1; }
+  #infowindow .trump .results {
+    color: #AF0000; }
 
 @font-face {
   font-family: "Gotham";
