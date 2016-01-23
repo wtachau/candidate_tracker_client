@@ -27,7 +27,7 @@ getCandidateImage = function(candidate) {
       var first;
       first = ($(".tweet-container." + candidate + " iframe"))[0];
       return $(first).animate({
-        'margin-top': '-225px'
+        'margin-top': '-220px'
       }, 1000, "swing", function() {
         var numIframes;
         numIframes = ($(".tweet-container." + candidate + " iframe")).length;

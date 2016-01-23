@@ -27,15 +27,4 @@ showImages = () ->
   imageNum = Math.floor(Math.random()*6) + 1
   clintonImage.attr('src',"/images/clinton/#{imageNum}.png")
 
-  # positionInfoBox()
-
   $("#infowindow").show()
-
-
-# positionInfoBox = () ->
-#   boxWidth = 200
-#   boxHeight = 400
-#   infoBox = ($ "#infowindow")[0]
-#   infoBox.style.top = 100 #((window.innerHeight - boxHeight) / 2)
-#   infoBox.style.width = 200
-#   infoBox.style.left = ((window.innerWidth - boxWidth) / 2)

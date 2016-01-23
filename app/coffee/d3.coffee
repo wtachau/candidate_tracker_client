@@ -91,7 +91,7 @@ render = () ->
       clintonData = dataForCandidate data.clinton
       bernieData = dataForCandidate data.bernie
 
-      boxWidth = 200
+      boxWidth = 150
       infoBox = ($ "#infowindow")[0]
       newPos = xCoord - 100
       # make sure it doesn't go off the page

@@ -33,7 +33,7 @@ getCandidateImage = (candidate) ->
     replaceFirstTweet = () ->
       first = ($ ".tweet-container.#{candidate} iframe")[0]
       # Move the first iframe up, then remove it
-      $(first).animate { 'margin-top': '-225px' }, 1000, "swing", () ->
+      $(first).animate { 'margin-top': '-220px' }, 1000, "swing", () ->
         # remove all but last tweet iframe (not sure why sometimes there are > 2)
         numIframes = ($ ".tweet-container.#{candidate} iframe").length
         ($ ".tweet-container.#{candidate} iframe").each (index) ->
