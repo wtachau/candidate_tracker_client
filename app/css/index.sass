@@ -1,6 +1,7 @@
 $red: #AF0000
 $bernie-blue: #2B3061
 $clinton-blue: #217BC1
+$background-color: #F4F4F4
 
 $bottom-bar-size: 225px
 $info-box-image-size: 50px
@@ -8,7 +9,7 @@ $info-box-image-size: 50px
 body
   margin: 0px
   font-family: 'Gotham'
-  background-color: #F4F4F4
+  background-color: $background-color
 
 .axis path,
 .axis line
@@ -90,6 +91,7 @@ body
   bottom: 0px
   height: $bottom-bar-size
   overflow: hidden
+  background-color: $background-color
   .tweet-container
     height: $bottom-bar-size
     overflow: scroll
@@ -113,26 +115,10 @@ body
 ::-webkit-scrollbar
   display: none
 
-// blockquote
-//   color: red
-//   display: inline-block
-//   font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif
-//   font-size: 12px
-//   font-weight: bold
-//   line-height: 16px
-//   border-color: #eee #ddd #bbb
-//   border-radius: 5px
-//   border-style: solid
-//   border-width: 1px
-//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15)
-//   margin: 10px 5px
-//   padding: 0 16px 16px 16px
-//   max-width: 468px
-
 iframe 
   /* other info at http://stackoverflow.com/questions/2630308/possible-to-shrink-contents-of-iframe */
   width: 100% !important
-  height: $bottom-bar-size !important
+  height: calc( $bottom-bar-size  - 9 ) !important
   margin-bottom: 0 !important
   // position: relative !important
 

@@ -108,7 +108,8 @@ render = function() {
       $(infoBox).find(".trump .results").text(((trumpData.average * 100).toFixed(2)) + " %");
       months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
       $(infoBox).find(".date").text("" + (months[d.getMonth()] + " " + d.getDate()));
-      return infoBox.style.top = 100;
+      infoBox.style.top = 100;
+      return infoBox.style.width = boxWidth;
     };
     svg.append("rect").attr("width", width).attr("height", height).style("fill", "none").style("pointer-events", "all").on("mousemove", mousemove);
     return displayInformation(window.innerWidth / 2);

@@ -33,9 +33,7 @@ getCandidateImage = function(candidate) {
         var numIframes;
         numIframes = ($(".tweet-container." + candidate + " iframe")).length;
         return ($(".tweet-container." + candidate + " iframe")).each(function(index) {
-          console.log(candidate + " >> looking at iframe " + index + " out of " + numIframes);
           if (index < numIframes - 1) {
-            console.log(candidate + " >> removing " + index);
             return $(this).remove();
           }
         });

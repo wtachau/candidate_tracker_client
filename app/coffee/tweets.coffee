@@ -34,12 +34,10 @@ getCandidateImage = (candidate) ->
       first = ($ ".tweet-container.#{candidate} iframe")[0]
       # Move the first iframe up, then remove it
       $(first).animate { 'margin-top': '-225px' }, 1000, "swing", () ->
-        # alert "remove"
+        # remove all but last tweet iframe (not sure why sometimes there are > 2)
         numIframes = ($ ".tweet-container.#{candidate} iframe").length
         ($ ".tweet-container.#{candidate} iframe").each (index) ->
-          console.log "#{candidate} >> looking at iframe #{index} out of #{numIframes}"
           if index < numIframes - 1
-            console.log "#{candidate} >> removing #{index}"
             $(@).remove()
 
     # Wait for the Twitter response by scanning for a new iframe getting added
@@ -54,6 +52,7 @@ getCandidateImage = (candidate) ->
           numberOfIframes -= 1
           replaceFirstTweet()
         
+        # And stop looking for iframes all the damn time
         clearInterval checkCandidateIframeExist
 
     ), 100)
@@ -62,8 +61,6 @@ getCandidateImage = (candidate) ->
     min = 10
     max = 12
     randomTiming = Math.random() * ((max - min) * 1000) + (min * 1000)
-    # console.log "#{candidate} >> calling for another"
-    # console.log "numberOfIframes = #{numberOfIframes}"
     setTimeout getCandidateImage, randomTiming, candidate
 
 getCandidateImage "bernie"

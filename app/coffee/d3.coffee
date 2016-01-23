@@ -105,7 +105,8 @@ render = () ->
       months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
       $(infoBox).find(".date").text "#{(months[d.getMonth()]) + " " + d.getDate()}" 
 
-      infoBox.style.top = 100 #((window.innerHeight - $(infoBox).height()) / 2) - 25
+      infoBox.style.top = 100
+      infoBox.style.width = boxWidth
 
     svg.append("rect")
         .attr("width", width)

@@ -79,7 +79,8 @@ body {
   position: absolute;
   bottom: 0px;
   height: 225px;
-  overflow: hidden; }
+  overflow: hidden;
+  background-color: #F4F4F4; }
   .tweet-row .tweet-container {
     height: 225px;
     overflow: scroll;
@@ -108,7 +109,7 @@ body {
 iframe {
   /* other info at http://stackoverflow.com/questions/2630308/possible-to-shrink-contents-of-iframe */
   width: 100% !important;
-  height: 225px !important;
+  height: calc( $bottom-bar-size  - 9 ) !important;
   margin-bottom: 0 !important; }
 
 @font-face {

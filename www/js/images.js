@@ -1,4 +1,4 @@
-var bernieImageContainer, checkExist, clintonImageContainer, positionInfoBox, ref, showImages, trumpImageContainer;
+var bernieImageContainer, checkExist, clintonImageContainer, ref, showImages, trumpImageContainer;
 
 $("#infowindow").hide();
 
@@ -26,16 +26,5 @@ showImages = function() {
   bernieImage.attr('src', "/images/bernie/" + imageNum + ".png");
   imageNum = Math.floor(Math.random() * 6) + 1;
   clintonImage.attr('src', "/images/clinton/" + imageNum + ".png");
-  positionInfoBox();
   return $("#infowindow").show();
-};
-
-positionInfoBox = function() {
-  var boxHeight, boxWidth, infoBox;
-  boxWidth = 200;
-  boxHeight = 400;
-  infoBox = ($("#infowindow"))[0];
-  infoBox.style.top = (window.innerHeight - boxHeight) / 2;
-  infoBox.style.width = 200;
-  return infoBox.style.left = (window.innerWidth - boxWidth) / 2;
 };
