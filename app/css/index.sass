@@ -2,6 +2,9 @@ $red: #AF0000
 $bernie-blue: #2B3061
 $clinton-blue: #217BC1
 
+$bottom-bar-size: 225px
+$info-box-image-size: 50px
+
 body
   margin: 0px
   font-family: 'Gotham'
@@ -64,14 +67,14 @@ body
     padding-top: 15px
     text-decoration: underline
   img
-    width: 100px
-    height: 100px
+    width: $info-box-image-size
+    height: $info-box-image-size
   .candidate-box
-    padding: 10px
+    padding: 5px
     &.bernie
-      padding-top: 20px
+      padding-top: 15px
   .results
-    font-size: 30px
+    font-size: 22px
     font-family: "Gotham-Bold"
     margin-top: 5px
   .bernie .results
@@ -80,6 +83,58 @@ body
     color: $clinton-blue
   .trump .results
     color: $red
+
+.tweet-row
+  width: 100%
+  position: absolute
+  bottom: 0px
+  height: $bottom-bar-size
+  overflow: hidden
+  .tweet-container
+    height: $bottom-bar-size
+    overflow: scroll
+    float: left
+    width: 33.33%
+
+.noflicker1
+  height: 10px
+  position: absolute
+  background-color: white
+  width: 100%
+  top: 0px
+
+.bernie .noflicker1
+  background-color: $bernie-blue
+.clinton .noflicker1
+  background-color: $clinton-blue
+.trump .noflicker1
+  background-color: $red
+
+::-webkit-scrollbar
+  display: none
+
+// blockquote
+//   color: red
+//   display: inline-block
+//   font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif
+//   font-size: 12px
+//   font-weight: bold
+//   line-height: 16px
+//   border-color: #eee #ddd #bbb
+//   border-radius: 5px
+//   border-style: solid
+//   border-width: 1px
+//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15)
+//   margin: 10px 5px
+//   padding: 0 16px 16px 16px
+//   max-width: 468px
+
+iframe 
+  /* other info at http://stackoverflow.com/questions/2630308/possible-to-shrink-contents-of-iframe */
+  width: 100% !important
+  height: $bottom-bar-size !important
+  margin-bottom: 0 !important
+  // position: relative !important
 
 @font-face
   font-family: "Gotham"

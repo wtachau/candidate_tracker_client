@@ -57,14 +57,14 @@ body {
     padding-top: 15px;
     text-decoration: underline; }
   #infowindow img {
-    width: 100px;
-    height: 100px; }
+    width: 50px;
+    height: 50px; }
   #infowindow .candidate-box {
-    padding: 10px; }
+    padding: 5px; }
     #infowindow .candidate-box.bernie {
-      padding-top: 20px; }
+      padding-top: 15px; }
   #infowindow .results {
-    font-size: 30px;
+    font-size: 22px;
     font-family: "Gotham-Bold";
     margin-top: 5px; }
   #infowindow .bernie .results {
@@ -73,6 +73,43 @@ body {
     color: #217BC1; }
   #infowindow .trump .results {
     color: #AF0000; }
+
+.tweet-row {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  height: 225px;
+  overflow: hidden; }
+  .tweet-row .tweet-container {
+    height: 225px;
+    overflow: scroll;
+    float: left;
+    width: 33.33%; }
+
+.noflicker1 {
+  height: 10px;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  top: 0px; }
+
+.bernie .noflicker1 {
+  background-color: #2B3061; }
+
+.clinton .noflicker1 {
+  background-color: #217BC1; }
+
+.trump .noflicker1 {
+  background-color: #AF0000; }
+
+::-webkit-scrollbar {
+  display: none; }
+
+iframe {
+  /* other info at http://stackoverflow.com/questions/2630308/possible-to-shrink-contents-of-iframe */
+  width: 100% !important;
+  height: 225px !important;
+  margin-bottom: 0 !important; }
 
 @font-face {
   font-family: "Gotham";

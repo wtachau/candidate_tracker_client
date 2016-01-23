@@ -48,7 +48,7 @@ render = () ->
   buffer = +0.1
   flattened = ($.map data, (v, i) -> v)
   x.domain d3.extent flattened, (d) -> d.date
-  y.domain [ d3.min(flattened, (d) -> +d.average - +d.total * +scale) - buffer, 
+  y.domain [ d3.min(flattened, (d) -> +d.average - +d.total * +scale) - buffer * 3, 
     d3.max(flattened, (d) -> +d.average + +d.total * +scale) + buffer]
 
   # Define the axes
@@ -105,20 +105,18 @@ render = () ->
       months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
       $(infoBox).find(".date").text "#{(months[d.getMonth()]) + " " + d.getDate()}" 
 
-      infoBox.style.top = ((window.innerHeight - $(infoBox).height()) / 2) + 25
+      infoBox.style.top = 100 #((window.innerHeight - $(infoBox).height()) / 2) - 25
 
     svg.append("rect")
         .attr("width", width)
         .attr("height", height)
         .style("fill", "none")
         .style("pointer-events", "all")
-        .on("mouseover", () -> console.log("mouseover"))
-        .on("mouseout", () -> console.log("mouseout"))
+        # .on("mouseover", () -> console.log("mouseover"))
+        # .on("mouseout", () -> console.log("mouseout"))
         .on("mousemove", mousemove)
 
     displayInformation(window.innerWidth / 2)
-
-
 
   # Add the X Axis
   svg.selectAll(".x.axis").remove()
@@ -126,6 +124,11 @@ render = () ->
 
 count = 0
 
+
+
+#
+# FETCH THE DATA
+#
 getPastTweets = ->
 
   firstKey = (dict) ->

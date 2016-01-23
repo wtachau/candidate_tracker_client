@@ -56,7 +56,7 @@ render = function() {
   y.domain([
     d3.min(flattened, function(d) {
       return +d.average - +d.total * +scale;
-    }) - buffer, d3.max(flattened, function(d) {
+    }) - buffer * 3, d3.max(flattened, function(d) {
       return +d.average + +d.total * +scale;
     }) + buffer
   ]);
@@ -109,13 +109,9 @@ render = function() {
       $(infoBox).find(".trump .results").text(((trumpData.average * 100).toFixed(2)) + " %");
       months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
       $(infoBox).find(".date").text("" + (months[d.getMonth()] + " " + d.getDate()));
-      return infoBox.style.top = ((window.innerHeight - $(infoBox).height()) / 2) + 25;
+      return infoBox.style.top = 100;
     };
-    svg.append("rect").attr("width", width).attr("height", height).style("fill", "none").style("pointer-events", "all").on("mouseover", function() {
-      return console.log("mouseover");
-    }).on("mouseout", function() {
-      return console.log("mouseout");
-    }).on("mousemove", mousemove);
+    svg.append("rect").attr("width", width).attr("height", height).style("fill", "none").style("pointer-events", "all").on("mousemove", mousemove);
     return displayInformation(window.innerWidth / 2);
   });
   svg.selectAll(".x.axis").remove();
