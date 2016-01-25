@@ -92,6 +92,9 @@ render = () ->
       bernieData = dataForCandidate data.bernie
 
       boxWidth = 150
+      boxHeight = 300
+      tweetRowHeight = 225
+      headerHeight = 65
       infoBox = ($ "#infowindow")[0]
       newPos = xCoord - 100
       # make sure it doesn't go off the page
@@ -105,8 +108,9 @@ render = () ->
       months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
       $(infoBox).find(".date").text "#{(months[d.getMonth()]) + " " + d.getDate()}" 
 
-      infoBox.style.top = 100
+      infoBox.style.top = (window.innerHeight - tweetRowHeight - headerHeight - boxHeight) / 2 + headerHeight
       infoBox.style.width = boxWidth
+      infoBox.style.height = boxHeight
 
     svg.append("rect")
         .attr("width", width)

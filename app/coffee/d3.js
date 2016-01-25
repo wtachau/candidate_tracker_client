@@ -80,7 +80,7 @@ render = function() {
       return displayInformation(xCoord);
     };
     displayInformation = function(xCoord) {
-      var bernieData, boxWidth, clintonData, d, d0, d1, dataForCandidate, i, infoBox, months, newPos, trumpData, x0;
+      var bernieData, boxHeight, boxWidth, clintonData, d, d0, d1, dataForCandidate, headerHeight, i, infoBox, months, newPos, trumpData, tweetRowHeight, x0;
       x0 = x.invert(xCoord);
       i = bisectDate(value, x0, 1);
       d0 = value[i - 1];
@@ -95,6 +95,9 @@ render = function() {
       clintonData = dataForCandidate(data.clinton);
       bernieData = dataForCandidate(data.bernie);
       boxWidth = 150;
+      boxHeight = 300;
+      tweetRowHeight = 225;
+      headerHeight = 65;
       infoBox = ($("#infowindow"))[0];
       newPos = xCoord - 100;
       if (newPos < 0) {
@@ -109,8 +112,9 @@ render = function() {
       $(infoBox).find(".trump .results").text(((trumpData.average * 100).toFixed(2)) + " %");
       months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
       $(infoBox).find(".date").text("" + (months[d.getMonth()] + " " + d.getDate()));
-      infoBox.style.top = 100;
-      return infoBox.style.width = boxWidth;
+      infoBox.style.top = (window.innerHeight - tweetRowHeight - headerHeight - boxHeight) / 2 + headerHeight;
+      infoBox.style.width = boxWidth;
+      return infoBox.style.height = boxHeight;
     };
     svg.append("rect").attr("width", width).attr("height", height).style("fill", "none").style("pointer-events", "all").on("mousemove", mousemove);
     return displayInformation(window.innerWidth / 2);
