@@ -1,1 +1,1 @@
-aws s3 sync www/ s3://candidatetracker --acl public-read
+aws s3 sync www/ s3://candidatetwittertracker.com --acl public-read

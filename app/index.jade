@@ -9,6 +9,44 @@ body
   .header 
     .title-container
       span.title 2016 CANDIDATE TWITTER TRACKER
+    .info-label
+      div what am I looking at?
+      img(src="/images/info.png") 
+
+  #infoPopup 
+    .background
+    .popup 
+      img.exit(src="/images/x.png")
+      .content 
+        div This graph shows the 
+          span.highlight sentiment 
+          =' '
+          | of tweets about Bernie, Hillary and Trump over 
+          span.highlight time.
+
+        div The location of the line along the 
+          span.highlight y-axis
+          =' '
+          | shows the 
+          span.highlight average positivity
+          =' '
+          | (or negativity) of tweets about each candidate.
+
+        div The width of each line shows the 
+          span.highlight volume
+          =' ' 
+          | of tweets (thicker line = more tweets).
+
+        div Sentiment analysis is done via 
+          a(href="https://indico.io/docs#sentiment",  target="_blank") Indico’s API
+          |, which is awesome.
+
+        div Tweets are streamed via Twitter’s 
+          a(href="https://dev.twitter.com/streaming/overview", target="_blank") Streaming API
+          |, because obviously.
+
+        div Built by 
+          a(href="http://willtachau.com/", target="_blank") Will Tachau
 
   #infowindow
     .date
@@ -40,5 +78,7 @@ body
 
 script(src="js/d3.js")
 script(src="js/images.js")
+script(src="js/infoPopup.js")
 script(src="js/tweets.js")
+script(src="js/analytics.js")
 
