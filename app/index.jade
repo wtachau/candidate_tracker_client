@@ -1,3 +1,9 @@
+meta(property="og:url", content="http://candidatetwittertracker.com")
+meta(property="og:title", content="Candidate Twitter Tracker 2016")
+meta(property="og:description", content="How positive or negative are the tweets about Bernie, Hillary and Trump?")
+meta(property="og:image", content="http://candidatetwittertracker.com//images/screenshot.png")
+
+meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
 link(rel="stylesheet", type="text/css", href="css/index.css")
 script(src="http://code.jquery.com/jquery-1.11.3.min.js")
 //- script(src="js/Chart.min.js")
@@ -6,12 +12,15 @@ link(href='https://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet',
 
 script(src="http://d3js.org/d3.v3.min.js", charset="utf-8")
 body
+  script(src="js/social.js")
   .header 
     .title-container
       span.title 2016 CANDIDATE TWITTER TRACKER
     .info-label
       div what am I looking at?
       img(src="/images/info.png") 
+    
+  .fb-like(data-href="http://candidatetwittertracker.com/", data-layout="button_count", data-action="like", data-show-faces="true", data-share="true")
 
   #infoPopup 
     .background
@@ -81,4 +90,5 @@ script(src="js/images.js")
 script(src="js/infoPopup.js")
 script(src="js/tweets.js")
 script(src="js/analytics.js")
+
 
