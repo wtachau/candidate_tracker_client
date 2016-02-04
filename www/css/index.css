@@ -102,8 +102,8 @@ body {
     padding-top: 15px;
     text-decoration: underline; }
   #infowindow img {
-    width: 40px;
-    height: 40px; }
+    width: 45px;
+    height: 45px; }
   #infowindow .candidate-box {
     padding: 5px; }
     #infowindow .candidate-box.bernie {
@@ -156,7 +156,7 @@ body {
 ::-webkit-scrollbar {
   display: none; }
 
-iframe {
+.tweet-row iframe {
   /* other info at http://stackoverflow.com/questions/2630308/possible-to-shrink-contents-of-iframe */
   width: 100% !important;
   height: calc( 225px  - 5px ) !important;
