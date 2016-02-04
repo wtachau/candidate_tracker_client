@@ -138,7 +138,7 @@ getPastTweets = ->
 
   firstKey = (dict) ->
     Object.keys(dict)[0]
-  $.get 'http://api.candidatetwittertracker.com/api/pastTweets.json', (responseData) ->
+  $.get 'http://api-cache.candidatetwittertracker.com/', (responseData) ->
     newData =  {
       trump: [ ],
       clinton: [ ],

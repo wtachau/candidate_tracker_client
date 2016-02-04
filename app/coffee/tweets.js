@@ -2,7 +2,7 @@
 var getCandidateImage;
 
 getCandidateImage = function(candidate) {
-  return $.get("http://candidatetracker.elasticbeanstalk.com/api/recentTweets?candidate=" + candidate, function(responseData) {
+  return $.get("http://api-cache-recenttweets.candidatetwittertracker.com/?candidate=" + candidate, function(responseData) {
     var anchor, block, checkCandidateIframeExist, id, max, min, numberOfIframes, randomId, randomTiming, ref, replaceFirstTweet, script, user;
     ref = JSON.parse(responseData), id = ref.id, user = ref.user;
     ($("script.twitter-script")).remove();

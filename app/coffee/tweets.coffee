@@ -1,7 +1,7 @@
 
 getCandidateImage = (candidate) ->
   # fetch candidate tweet info
-  $.get "http://candidatetracker.elasticbeanstalk.com/api/recentTweets?candidate=#{candidate}", (responseData) ->
+  $.get "http://api-cache-recenttweets.candidatetwittertracker.com/?candidate=#{candidate}", (responseData) ->
     { id, user } = JSON.parse responseData
 
     ($ "script.twitter-script").remove()

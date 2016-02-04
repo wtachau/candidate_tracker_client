@@ -130,7 +130,7 @@ getPastTweets = function() {
   firstKey = function(dict) {
     return Object.keys(dict)[0];
   };
-  return $.get('http://api.candidatetwittertracker.com/api/pastTweets.json', function(responseData) {
+  return $.get('http://api-cache.candidatetwittertracker.com/', function(responseData) {
     var bernieObject, candidates, clintonObject, cruzObject, date, day, dayRecord, j, len, newData, pastData, ref1, rubioObject, trumpObject;
     newData = {
       trump: [],
