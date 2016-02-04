@@ -19,6 +19,10 @@ body {
   fill: #AF0000; }
 .line.line-bernie > path {
   fill: #2B3061; }
+.line.line-cruz > path {
+  display: none; }
+.line.line-rubio > path {
+  display: none; }
 
 .candidate-image {
   position: absolute; }

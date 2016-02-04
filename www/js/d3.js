@@ -129,8 +129,8 @@ getPastTweets = function() {
   firstKey = function(dict) {
     return Object.keys(dict)[0];
   };
-  return $.get('http://candidatetracker.elasticbeanstalk.com/api/pastTweets', function(responseData) {
-    var bernieObject, candidates, clintonObject, date, day, dayRecord, j, len, newData, pastData, ref1, trumpObject;
+  return $.get('http://api.candidatetwittertracker.com/api/pastTweets.json', function(responseData) {
+    var bernieObject, candidates, clintonObject, cruzObject, date, day, dayRecord, j, len, newData, pastData, ref1, rubioObject, trumpObject;
     newData = {
       trump: [],
       clinton: [],
@@ -153,6 +153,10 @@ getPastTweets = function() {
         clintonObject.date = date;
         trumpObject = candidates.trump;
         trumpObject.date = date;
+        cruzObject = candidates.cruz;
+        cruzObject.date = date;
+        rubioObject = candidates.rubio;
+        rubioObject.date = date;
         if (candidates.trump.total > 30) {
           newData.bernie.push(bernieObject);
           newData.trump.push(trumpObject);

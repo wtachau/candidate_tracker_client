@@ -138,11 +138,13 @@ getPastTweets = ->
 
   firstKey = (dict) ->
     Object.keys(dict)[0]
-  $.get 'http://candidatetracker.elasticbeanstalk.com/api/pastTweets', (responseData) ->
+  $.get 'http://api.candidatetwittertracker.com/api/pastTweets.json', (responseData) ->
     newData =  {
       trump: [ ],
       clinton: [ ],
-      bernie: [ ]
+      bernie: [ ],
+      # cruz: [ ],
+      # rubio: [ ]
     }
     pastData = JSON.parse responseData
     if pastData["dayRecords"]
@@ -164,12 +166,20 @@ getPastTweets = ->
         trumpObject = candidates.trump
         trumpObject.date = date
 
+        cruzObject = candidates.cruz
+        cruzObject.date = date
+
+        rubioObject = candidates.rubio
+        rubioObject.date = date
+
         # Only add to graph if total tweets for trump (who usually gets the most) is above 100
         # i.e. once data has stabled out a bit
         if candidates.trump.total > 30
           newData.bernie.push bernieObject
           newData.trump.push trumpObject
           newData.clinton.push clintonObject
+          # newData.cruz.push cruzObject
+          # newData.rubio.push rubioObject
 
       data = newData
       render()
